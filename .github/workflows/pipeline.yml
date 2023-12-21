@@ -8,7 +8,6 @@ on:
     types: [opened, synchronize]
 
 jobs:
-
   avoid_reduncy:
     runs-on: ubuntu-18.04
     steps:
@@ -20,28 +19,28 @@ jobs:
   lint:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
-          node-version: '14'
+          cache: "npm"
+          node-version: "18"
       - name: Install dependencies
-        run: npm ci
-      - name: Lint
+        run: npm ciLint
+      - name:
         run: npm run eslint
 
   build:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
-          node-version: '14'
+          cache: "npm"
+          node-version: "14"
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -55,13 +54,13 @@ jobs:
     needs: [lint, build]
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
-          node-version: '14'
+          cache: "npm"
+          node-version: "14"
       - name: Install dependencies
         run: npm ci
       - uses: actions/download-artifact@v2
@@ -75,13 +74,13 @@ jobs:
     needs: [lint, build]
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
-          node-version: '14'
+          cache: "npm"
+          node-version: "14"
       - name: Install dependencies
         run: npm ci
       - uses: actions/download-artifact@v2
@@ -99,7 +98,7 @@ jobs:
     needs: [test, e2e]
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Deploy to Heroku
