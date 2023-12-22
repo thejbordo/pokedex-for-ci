@@ -52,7 +52,7 @@ jobs:
 
   test:
     needs: [lint, build]
-    runs-on: ubuntu-18.04
+    runs-on: windows latest
     steps:
       - uses: actions/checkout@v4
         with:
