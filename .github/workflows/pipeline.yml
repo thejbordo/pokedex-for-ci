@@ -9,7 +9,7 @@ on:
 
 jobs:
   avoid_reduncy:
-    runs-on: ubuntu-18.04
+    runs-on: windows latest
     steps:
       - name: Cancel Previous Redundant Builds
         uses: styfle/cancel-workflow-action@0.9.1
@@ -17,7 +17,7 @@ jobs:
           access_token: ${{ github.token }}
 
   lint:
-    runs-on: ubuntu-18.04
+    runs-on: windows latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,7 +32,7 @@ jobs:
         run: npm run eslint
 
   build:
-    runs-on: ubuntu-18.04
+    runs-on: windows latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -74,7 +74,7 @@ jobs:
     needs: [lint, build]
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: windows latest
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v4
@@ -96,14 +96,14 @@ jobs:
 
   deploy:
     needs: [test, e2e]
-    runs-on: ubuntu-18.04
+    runs-on: windows latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Deploy to Heroku
         if: ${{ github.event_name == 'push' }}
-        uses: akhileshns/heroku-deploy@v3.12.12
+        uses: akhileshns/heroku-deploy@v3.12.14
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP}}
