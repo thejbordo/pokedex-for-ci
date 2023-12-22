@@ -9,7 +9,7 @@ on:
 
 jobs:
   avoid_reduncy:
-    runs-on: windows latest
+    runs-on: ubuntu-latest
     steps:
       - name: Cancel Previous Redundant Builds
         uses: styfle/cancel-workflow-action@0.9.1
@@ -17,7 +17,7 @@ jobs:
           access_token: ${{ github.token }}
 
   lint:
-    runs-on: windows latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,7 +32,7 @@ jobs:
         run: npm run eslint
 
   build:
-    runs-on: windows latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -52,7 +52,7 @@ jobs:
 
   test:
     needs: [lint, build]
-    runs-on: windows latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -72,9 +72,9 @@ jobs:
 
   e2e:
     needs: [lint, build]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: windows latest
+      - uses: ubuntu-latest
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v4
@@ -96,9 +96,9 @@ jobs:
 
   deploy:
     needs: [test, e2e]
-    runs-on: windows latest
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Deploy to Heroku
